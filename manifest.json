@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "Wheel of Names Enhancer",
+    "version": "1.0",
+    "description": "Displays a list of people on the left side of the page on Wheel of Names.",
+    "permissions": [
+      "activeTab",
+      "tabs"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://wheelofnames.com/*", "https://www.faceit.com/en/cs2/room/*/scoreboard"],
+        "js": ["content.js"],
+        "css": ["styles.css"]
+      }
+    ],
+    "icons": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    }
+  }
+  
