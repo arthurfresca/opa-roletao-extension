@@ -1,5 +1,5 @@
 async function fetchNames() {
-    const response = await fetch('https://raw.githubusercontent.com/arthurfresca/opaweb/main/anjos.txt');
+    const response = await fetch('https://raw.githubusercontent.com/arthurfresca/opa-roletao-extension/master/resources/angels.txt');
     const text = await response.text();
     const names = text.split('\n').filter(name => name.trim() !== '');
     return names;

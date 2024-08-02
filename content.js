@@ -36,7 +36,7 @@ if (window.location.hostname === 'wheelofnames.com') {
 //FACEIT
 async function fetchFaceitIds() {
     try {
-      const response = await fetch('https://raw.githubusercontent.com/arthurfresca/opaweb/main/playermapping.json');
+      const response = await fetch('https://raw.githubusercontent.com/arthurfresca/opa-roletao-extension/master/resources/playermapping.json');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
