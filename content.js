@@ -60,11 +60,8 @@ async function fetchFaceitIds() {
         elements.forEach(el => {
             const textContent = el.textContent.trim();
 
-            // Check if the textContent matches any of the Faceit IDs
             if (faceitIds.includes(textContent)) {
                 players.push(textContent)
-                // Example of highlighting matching elements
-                el.style.backgroundColor = 'yellow';
             }
         });
     } catch (error) {
@@ -97,7 +94,6 @@ function createButton() {
   
   // Function to insert the button after the target element
   function insertButtonAfterElement() {
-    // Find the element with text starting with 'lobby'
     const elements = Array.from(document.querySelectorAll('*'));
     const targetElement = elements.find(el => el.textContent.trim().startsWith('lobby'));
   
