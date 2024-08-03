@@ -17,10 +17,6 @@ if (window.location.hostname === 'wheelofnames.com') {
           }
         }
 
-        function preventInteraction(e) {
-          e.preventDefault();
-        }
-        
         const urlParams = new URLSearchParams(window.location.search);
         const players = urlParams.getAll('player');
 
@@ -58,7 +54,45 @@ if (window.location.hostname === 'wheelofnames.com') {
 
             namesList.appendChild(playerElement);
         });
-    
+
+        // Container for combo box and submit button
+        const formContainer = document.createElement('div');
+        formContainer.id = 'formContainer';
+        formContainer.style.marginTop = '10px'; // Adjust the margin as needed
+
+        // Combo box to select a number from 1 to 4
+        const numberLabel = document.createElement('label');
+        numberLabel.textContent = 'Número de jogadores esperando';
+
+        const numberSelect = document.createElement('select');
+        numberSelect.id = 'numberSelect';
+        numberSelect.style.marginRight = '10px';
+        numberSelect.style.textColor = 'black'
+        for (let i = 1; i <= 4; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            numberSelect.appendChild(option);
+        }
+        formContainer.appendChild(numberSelect);
+
+        // Submit button
+        const submitButton = document.createElement('button');
+        submitButton.id = 'submitButton';
+        submitButton.textContent = 'Liberar a roleta';
+        submitButton.addEventListener('click', () => {
+            const selectedNumber = document.getElementById('numberSelect').value;
+            makeCanvasClickable(wheelCanvas);
+            submitButton.disabled = true;
+            submitButton.style.cursor = 'not-allowed';
+            submitButton.textContent = 'Roleta liberada';
+        });
+        namesList.appendChild(numberLabel);
+        
+        namesList.appendChild(formContainer);
+
+        namesList.appendChild(submitButton);
+
         document.body.appendChild(namesList);
 
     });
