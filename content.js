@@ -17,6 +17,27 @@ if (window.location.hostname === 'wheelofnames.com') {
           }
         }
 
+        function simulateTypingAndTriggerEvents(selectedNames) {
+          const editorDiv = document.querySelector('.basic-editor');
+          editorDiv.innerHTML = ''; 
+
+          selectedNames.forEach(name => {
+            if (!editorDiv) return;
+            
+            const currentContent = editorDiv.innerHTML;
+
+            editorDiv.innerHTML = `${currentContent}<div>${name}</div>`;
+        
+            // Create and dispatch input event
+            const inputEvent = new Event('input', { bubbles: true });
+            editorDiv.dispatchEvent(inputEvent);
+        
+            // Create and dispatch change event if needed
+            const changeEvent = new Event('change', { bubbles: true });
+            editorDiv.dispatchEvent(changeEvent);
+          });
+      }
+
         const urlParams = new URLSearchParams(window.location.search);
         const players = urlParams.getAll('player');
 
@@ -81,11 +102,17 @@ if (window.location.hostname === 'wheelofnames.com') {
         submitButton.id = 'submitButton';
         submitButton.textContent = 'Liberar a roleta';
         submitButton.addEventListener('click', () => {
+            const selectedNames = Array.from(document.querySelectorAll('#namesList input[type="checkbox"]:checked'))
+            .map(checkbox => checkbox.value);
+  
+      
+            simulateTypingAndTriggerEvents(selectedNames);
+
             const selectedNumber = document.getElementById('numberSelect').value;
-            makeCanvasClickable(wheelCanvas);
             submitButton.disabled = true;
             submitButton.style.cursor = 'not-allowed';
             submitButton.textContent = 'Roleta liberada';
+            makeCanvasClickable(wheelCanvas);
         });
         namesList.appendChild(numberLabel);
         
