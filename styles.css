@@ -26,4 +26,8 @@
   #namesList div:hover {
     background-color: #e0e0e0;
   }
+
+  .invisible {
+    visibility: hidden;
+  }
   

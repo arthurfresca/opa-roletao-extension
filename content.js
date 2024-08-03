@@ -1,6 +1,26 @@
 //ROLETAO
 if (window.location.hostname === 'wheelofnames.com') {
     chrome.runtime.sendMessage({ action: 'getNames' }, response => {
+        const wheelCanvas = document.getElementById('parentDiv');
+
+        makeCanvasReadOnly(wheelCanvas);
+
+        function makeCanvasReadOnly(wheelCanvas) {
+          if (wheelCanvas) {
+            wheelCanvas.style.pointerEvents = 'none';
+          }
+        }
+
+        function makeCanvasClickable(wheelCanvas) {
+          if (wheelCanvas) {
+            wheelCanvas.style.pointerEvents = 'auto';  // Make the canvas interactive again
+          }
+        }
+
+        function preventInteraction(e) {
+          e.preventDefault();
+        }
+        
         const urlParams = new URLSearchParams(window.location.search);
         const players = urlParams.getAll('player');
 
@@ -10,6 +30,12 @@ if (window.location.hostname === 'wheelofnames.com') {
         players.forEach(player => {
             
             const playerElement = document.createElement('div');
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.style.marginRight = '5px';
+            checkbox.value = player;
+            playerElement.appendChild(checkbox);
 
             if (response.names.includes(player)) {
                 const angelImage = document.createElement('img');
@@ -23,6 +49,10 @@ if (window.location.hostname === 'wheelofnames.com') {
                 playerElement.appendChild(angelImage);
             }
 
+            playerElement.addEventListener('click', () => {
+              checkbox.checked = !checkbox.checked;
+            });
+
             const nameText = document.createTextNode(player);
             playerElement.appendChild(nameText);
 
@@ -30,6 +60,7 @@ if (window.location.hostname === 'wheelofnames.com') {
         });
     
         document.body.appendChild(namesList);
+
     });
 }
 
