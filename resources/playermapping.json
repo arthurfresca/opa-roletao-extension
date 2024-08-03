@@ -92,7 +92,7 @@
     },
     {
         "name": "Freeman",
-        "faceit_id": "Freeman_-",
+        "faceit_id": "-Freeman_-",
         "csstats_id": "76561197961956900",
         "role": "Novinho",
         "year": 2024
@@ -116,6 +116,13 @@
         "faceit_id": "bnocesar",
         "csstats_id": "76561199480351514",
         "role": "Novinho",
+        "year": 2024
+    },
+    {
+        "name": "Lipe",
+        "faceit_id": "Insidercs",
+        "csstats_id": "insidercs",
+        "role": "Incubator",
         "year": 2024
     }
 ]
