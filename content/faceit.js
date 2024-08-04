@@ -13,21 +13,17 @@ function getPlayers() {
 async function getPlayersInTheMatch() {
   const players = await getPlayers();
   const playersInTheMatch = [];
-  try {
-    const elements = Array.from(document.querySelectorAll('*'));
-    const faceitIds = players.map(player => player.faceit_id).filter(id => id);
+  
+  const faceitIds = players.map(player => player.faceit_id).filter(id => id);
 
-    elements.forEach(el => {
-      const textContent = el.textContent.trim();
+  const scoreboard = document.getElementById('MATCHROOM-SCOREBOARD');
+  const scoreboardElements = Array.from(scoreboard.children);
 
-      if (faceitIds.includes(textContent)) {
-        playersInTheMatch.push(textContent)
-      }
-    });
-
-  } catch (error) {
-    console.error('Error fetching Faceit IDs:', error);
-  }
+  scoreboardElements.forEach(el => {
+    faceitIds.filter(id => (el.textContent.toString().includes(id))).forEach(
+      playerInTheMatch => playersInTheMatch.push(playerInTheMatch)
+    );
+  });
 
   return Array.from(new Set(playersInTheMatch));
 }
