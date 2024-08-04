@@ -13,7 +13,7 @@
     "content_scripts": [
       {
         "matches": ["https://wheelofnames.com/*", "https://www.faceit.com/en/cs2/room/*/scoreboard"],
-        "js": ["content.js"],
+        "js": ["./content/faceit.js", "./content/roletao.js"],
         "css": ["styles.css"]
       }
     ],

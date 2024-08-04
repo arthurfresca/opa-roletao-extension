@@ -4,6 +4,7 @@
         "faceit_id": "KICKFLIPPPPP",
         "csstats_id": "76561198880256779",
         "role": "Admin",
+        "hasAngel": true,
         "year": 2020
     },
     {
@@ -11,6 +12,7 @@
         "faceit_id": "Chalkzera",
         "csstats_id": "76561198044554166",
         "role": "Admin",
+        "hasAngel": false,
         "year": 2023
     },
     {
@@ -18,6 +20,7 @@
         "faceit_id": "flafjr",
         "csstats_id": "76561198086481162",
         "role": "Admin",
+        "hasAngel": false,
         "year": 2020
     },
     {
@@ -25,6 +28,7 @@
         "faceit_id": "Cnidario",
         "csstats_id": "76561198077945436",
         "role": "Ancião",
+        "hasAngel": true,
         "year": 2020
     },
     {
@@ -32,6 +36,7 @@
         "faceit_id": "notPro10",
         "csstats_id": "76561198023688039",
         "role": "Ancião",
+        "hasAngel": false,
         "year": 2020
     },
     {
@@ -39,6 +44,7 @@
         "faceit_id": "R_MArk",
         "csstats_id": "76561198428260263",
         "role": "Ancião",
+        "hasAngel": false,
         "year": 2020
     },
     {
@@ -46,6 +52,7 @@
         "faceit_id": "",
         "csstats_id": "76561198062429190",
         "role": "Lenda",
+        "hasAngel": false,
         "year": 2020
     },
     {
@@ -53,6 +60,7 @@
         "faceit_id": "el_mago97",
         "csstats_id": "76561199112330495",
         "role": "Ancião",
+        "hasAngel": false,
         "year": 2021
     },
     {
@@ -60,6 +68,7 @@
         "faceit_id": "___rafA",
         "csstats_id": "76561199219737474",
         "role": "Véiaco",
+        "hasAngel": true,
         "year": 2022
     },
     {
@@ -67,6 +76,7 @@
         "faceit_id": "_Ramone",
         "csstats_id": "76561198970702915",
         "role": "Ancião",
+        "hasAngel": false,
         "year": 2020
     },
     {
@@ -74,6 +84,7 @@
         "faceit_id": "marlon91",
         "csstats_id": "76561198951887025",
         "role": "Experiente",
+        "hasAngel": false,
         "year": 2023
     },
     {
@@ -81,6 +92,7 @@
         "faceit_id": "sfribeiro",
         "csstats_id": "76561198043576393",
         "role": "Novinho",
+        "hasAngel": false,
         "year": 2024
     },
     {
@@ -88,6 +100,7 @@
         "faceit_id": "Elunesz",
         "csstats_id": "76561197987233720",
         "role": "Novinho",
+        "hasAngel": false,
         "year": 2024
     },
     {
@@ -95,6 +108,7 @@
         "faceit_id": "-Freeman_-",
         "csstats_id": "76561197961956900",
         "role": "Novinho",
+        "hasAngel": false,
         "year": 2024
     },
     {
@@ -102,6 +116,7 @@
         "faceit_id": "-BlueDog-",
         "csstats_id": "76561198066704802",
         "role": "Novinho",
+        "hasAngel": false,
         "year": 2024
     },
     {
@@ -109,6 +124,7 @@
         "faceit_id": "elvis_Astnt",
         "csstats_id": "76561198053161518",
         "role": "Novinho",
+        "hasAngel": false,
         "year": 2024
     },
     {
@@ -116,6 +132,7 @@
         "faceit_id": "bnocesar",
         "csstats_id": "76561199480351514",
         "role": "Novinho",
+        "hasAngel": false,
         "year": 2024
     },
     {
@@ -123,6 +140,7 @@
         "faceit_id": "Insidercs",
         "csstats_id": "insidercs",
         "role": "Incubator",
+        "hasAngel": false,
         "year": 2024
     }
 ]
