@@ -13,7 +13,7 @@ function getPlayers() {
 async function getPlayersInTheMatch() {
   const players = await getPlayers();
   const playersInTheMatch = [];
-  
+
   const faceitIds = players.map(player => player.faceit_id).filter(id => id);
 
   const scoreboard = document.getElementById('MATCHROOM-SCOREBOARD');
@@ -48,8 +48,8 @@ function createButton() {
 
   return button;
 }
-  
-  // Function to insert the button after the target element
+
+// Function to insert the button after the target element
 function insertButtonAfterElement() {
   const elements = Array.from(document.querySelectorAll('*'));
   const targetElement = elements.find(el => el.textContent.trim().startsWith('lobby'));
@@ -65,7 +65,6 @@ function insertButtonAfterElement() {
     setTimeout(insertButtonAfterElement, 1000);
   }
 }
-  
+
 // Run the function to insert the button
 insertButtonAfterElement();
-  

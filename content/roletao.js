@@ -1,5 +1,5 @@
 if (window.location.hostname === 'wheelofnames.com') {
-  
+
   chrome.runtime.sendMessage({ action: 'getPlayers' }, response => {
     const faceItIdsList = response.map(player => player.faceitId);
     const playersWithAngel = response.filter(player => player.hasAngel).map(player => player.faceitId);
@@ -12,7 +12,7 @@ if (window.location.hostname === 'wheelofnames.com') {
 
         // Check if the name occurs 3 times
         if (matches && matches.length === 3) {
-            return name; // Return the first name found with exactly 3 occurrences
+          return name; // Return the first name found with exactly 3 occurrences
         }
       }
 
@@ -27,7 +27,7 @@ if (window.location.hostname === 'wheelofnames.com') {
         mutationsList.forEach(mutation => {
           if (mutation.type === 'childList' || mutation.type === 'characterData') {
             const gotAngel = findNameWithThreeOccurrences(textBox.textContent.toString().trim(), faceItIdsList)
-            if(gotAngel != null){
+            if (gotAngel != null) {
               alert(gotAngel);
             };
           }
@@ -38,64 +38,64 @@ if (window.location.hostname === 'wheelofnames.com') {
       observer.observe(textBox, { childList: true, characterData: true, subtree: true });
     }
 
-  // Function to initialize the observer
-  function initObserver() {
-    const textBox = document.querySelector('.results-textbox');
-    if (textBox) {
-      handleTextBoxChange(textBox);
-    } else {
-      console.error('TextBox not found');
+    // Function to initialize the observer
+    function initObserver() {
+      const textBox = document.querySelector('.results-textbox');
+      if (textBox) {
+        handleTextBoxChange(textBox);
+      } else {
+        console.error('TextBox not found');
+      }
     }
-  }
 
-  // Use MutationObserver to detect when the target element is added to the DOM
-  const observer = new MutationObserver(() => {
-    const textBox = document.querySelector('.results-textbox');
-    
-    if (textBox) {
-      initObserver();
-      observer.disconnect(); // Stop observing once the element is found
-    }
-  });
+    // Use MutationObserver to detect when the target element is added to the DOM
+    const observer = new MutationObserver(() => {
+      const textBox = document.querySelector('.results-textbox');
 
-  observer.observe(document.body, { childList: true, subtree: true });
-
-  const wheelCanvas = document.getElementById('parentDiv');
-
-  makeCanvasReadOnly(wheelCanvas);
-
-  function makeCanvasReadOnly(wheelCanvas) {
-    if (wheelCanvas) {
-      wheelCanvas.style.pointerEvents = 'none';
-    }
-  }
-
-  function makeCanvasClickable(wheelCanvas) {
-    if (wheelCanvas) {
-      wheelCanvas.style.pointerEvents = 'auto';  // Make the canvas interactive again
-    }
-  }
-
-  function simulateTypingAndTriggerEvents(selectedNames) {
-    const editorDiv = document.querySelector('.basic-editor');
-    editorDiv.innerHTML = ''; 
-
-    selectedNames.forEach(name => {
-      if (!editorDiv) return;
-      
-      const currentContent = editorDiv.innerHTML;
-
-      editorDiv.innerHTML = `${currentContent}<div>${name}</div>`;
-  
-      // Create and dispatch input event
-      const inputEvent = new Event('input', { bubbles: true });
-      editorDiv.dispatchEvent(inputEvent);
-  
-      // Create and dispatch change event if needed
-      const changeEvent = new Event('change', { bubbles: true });
-      editorDiv.dispatchEvent(changeEvent);
+      if (textBox) {
+        initObserver();
+        observer.disconnect(); // Stop observing once the element is found
+      }
     });
-  }
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    const wheelCanvas = document.getElementById('parentDiv');
+
+    makeCanvasReadOnly(wheelCanvas);
+
+    function makeCanvasReadOnly(wheelCanvas) {
+      if (wheelCanvas) {
+        wheelCanvas.style.pointerEvents = 'none';
+      }
+    }
+
+    function makeCanvasClickable(wheelCanvas) {
+      if (wheelCanvas) {
+        wheelCanvas.style.pointerEvents = 'auto';  // Make the canvas interactive again
+      }
+    }
+
+    function simulateTypingAndTriggerEvents(selectedNames) {
+      const editorDiv = document.querySelector('.basic-editor');
+      editorDiv.innerHTML = '';
+
+      selectedNames.forEach(name => {
+        if (!editorDiv) return;
+
+        const currentContent = editorDiv.innerHTML;
+
+        editorDiv.innerHTML = `${currentContent}<div>${name}</div>`;
+
+        // Create and dispatch input event
+        const inputEvent = new Event('input', { bubbles: true });
+        editorDiv.dispatchEvent(inputEvent);
+
+        // Create and dispatch change event if needed
+        const changeEvent = new Event('change', { bubbles: true });
+        editorDiv.dispatchEvent(changeEvent);
+      });
+    }
 
     const urlParams = new URLSearchParams(window.location.search);
     const players = urlParams.getAll('player');
@@ -104,7 +104,7 @@ if (window.location.hostname === 'wheelofnames.com') {
     namesList.id = 'namesList';
 
     players.forEach(player => {
-        
+
       const playerElement = document.createElement('div');
 
       const checkbox = document.createElement('input');
@@ -114,15 +114,15 @@ if (window.location.hostname === 'wheelofnames.com') {
       playerElement.appendChild(checkbox);
 
       if (playersWithAngel.includes(player)) {
-          const angelImage = document.createElement('img');
-          angelImage.src = 'https://cdn-icons-png.flaticon.com/512/6190/6190680.png'; 
-          angelImage.alt = 'Angel';
-          angelImage.style.marginLeft = '5px';
-          angelImage.style.marginRight = '5px';
-          angelImage.style.height = '1em'; 
-          angelImage.style.width = 'auto';
+        const angelImage = document.createElement('img');
+        angelImage.src = 'https://cdn-icons-png.flaticon.com/512/6190/6190680.png';
+        angelImage.alt = 'Angel';
+        angelImage.style.marginLeft = '5px';
+        angelImage.style.marginRight = '5px';
+        angelImage.style.height = '1em';
+        angelImage.style.width = 'auto';
 
-          playerElement.appendChild(angelImage);
+        playerElement.appendChild(angelImage);
       }
 
       playerElement.addEventListener('click', () => {
@@ -162,7 +162,7 @@ if (window.location.hostname === 'wheelofnames.com') {
     submitButton.textContent = 'Liberar a roleta';
     submitButton.addEventListener('click', () => {
       const selectedNames = Array.from(document.querySelectorAll('#namesList input[type="checkbox"]:checked'))
-      .map(checkbox => checkbox.value);
+        .map(checkbox => checkbox.value);
 
 
       simulateTypingAndTriggerEvents(selectedNames);
