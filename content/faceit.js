@@ -14,7 +14,7 @@ async function getPlayersInTheMatch() {
   const players = await getPlayers();
   const playersInTheMatch = [];
 
-  const faceitIds = players.map(player => player.faceit_id).filter(id => id);
+  const faceitIds = players.map(player => player.faceitId).filter(id => id);
 
   const scoreboard = document.getElementById('MATCHROOM-SCOREBOARD');
   const scoreboardElements = Array.from(scoreboard.children);
