@@ -4,15 +4,8 @@ if (window.location.hostname === 'wheelofnames.com') {
     const faceItIdsList = response.map(player => player.faceitId);
     const playersWithAngel = response.filter(player => player.hasAngel).map(player => player.faceitId);
 
-    console.error(faceItIdsList);
-    console.error(playersWithAngel);
-
-    function showPopup(name) {
-      alert(`The name "${name}" appears 3 times!`);
-    }
-
-  function findNameWithThreeOccurrences(str, names) {
-    for (let name of names) {
+    function findNameWithThreeOccurrences(str, names) {
+      for (let name of names) {
         // Create a regular expression to match the name globally in the string
         let regex = new RegExp(name, 'g');
         let matches = str.match(regex);
@@ -21,84 +14,87 @@ if (window.location.hostname === 'wheelofnames.com') {
         if (matches && matches.length === 3) {
             return name; // Return the first name found with exactly 3 occurrences
         }
+      }
+
+      return null; // Return null if no name is found with exactly 3 occurrences
     }
 
-    return null; // Return null if no name is found with exactly 3 occurrences
-  }
-
-  // Function to handle name counting and popup triggering
-  function handleTextBoxChange(textBox) {
+    // Function to handle name counting and popup triggering
+    function handleTextBoxChange(textBox) {
       const nameCounts = {};
 
       const observerCallback = (mutationsList) => {
-          mutationsList.forEach(mutation => {
-              if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                  const result = findNameWithThreeOccurrences(textBox.textContent.trim(), faceItIdsList);
-              }
-          });
+        mutationsList.forEach(mutation => {
+          if (mutation.type === 'childList' || mutation.type === 'characterData') {
+            const gotAngel = findNameWithThreeOccurrences(textBox.textContent.toString().trim(), faceItIdsList)
+            if(gotAngel != null){
+              alert(gotAngel);
+            };
+          }
+        });
       };
 
       const observer = new MutationObserver(observerCallback);
       observer.observe(textBox, { childList: true, characterData: true, subtree: true });
-  }
+    }
 
   // Function to initialize the observer
   function initObserver() {
-      const textBox = document.querySelector('.results-textbox');
-      if (textBox) {
-          handleTextBoxChange(textBox);
-      } else {
-          console.error('TextBox not found');
-      }
+    const textBox = document.querySelector('.results-textbox');
+    if (textBox) {
+      handleTextBoxChange(textBox);
+    } else {
+      console.error('TextBox not found');
+    }
   }
 
   // Use MutationObserver to detect when the target element is added to the DOM
   const observer = new MutationObserver(() => {
-      const textBox = document.querySelector('.results-textbox');
-      
-      if (textBox) {
-          initObserver();
-          observer.disconnect(); // Stop observing once the element is found
-      }
+    const textBox = document.querySelector('.results-textbox');
+    
+    if (textBox) {
+      initObserver();
+      observer.disconnect(); // Stop observing once the element is found
+    }
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
 
-    const wheelCanvas = document.getElementById('parentDiv');
+  const wheelCanvas = document.getElementById('parentDiv');
 
-    makeCanvasReadOnly(wheelCanvas);
+  makeCanvasReadOnly(wheelCanvas);
 
-    function makeCanvasReadOnly(wheelCanvas) {
-      if (wheelCanvas) {
-        wheelCanvas.style.pointerEvents = 'none';
-      }
+  function makeCanvasReadOnly(wheelCanvas) {
+    if (wheelCanvas) {
+      wheelCanvas.style.pointerEvents = 'none';
     }
+  }
 
-    function makeCanvasClickable(wheelCanvas) {
-      if (wheelCanvas) {
-        wheelCanvas.style.pointerEvents = 'auto';  // Make the canvas interactive again
-      }
+  function makeCanvasClickable(wheelCanvas) {
+    if (wheelCanvas) {
+      wheelCanvas.style.pointerEvents = 'auto';  // Make the canvas interactive again
     }
+  }
 
-    function simulateTypingAndTriggerEvents(selectedNames) {
-      const editorDiv = document.querySelector('.basic-editor');
-      editorDiv.innerHTML = ''; 
+  function simulateTypingAndTriggerEvents(selectedNames) {
+    const editorDiv = document.querySelector('.basic-editor');
+    editorDiv.innerHTML = ''; 
 
-      selectedNames.forEach(name => {
-        if (!editorDiv) return;
-        
-        const currentContent = editorDiv.innerHTML;
+    selectedNames.forEach(name => {
+      if (!editorDiv) return;
+      
+      const currentContent = editorDiv.innerHTML;
 
-        editorDiv.innerHTML = `${currentContent}<div>${name}</div>`;
-    
-        // Create and dispatch input event
-        const inputEvent = new Event('input', { bubbles: true });
-        editorDiv.dispatchEvent(inputEvent);
-    
-        // Create and dispatch change event if needed
-        const changeEvent = new Event('change', { bubbles: true });
-        editorDiv.dispatchEvent(changeEvent);
-      });
+      editorDiv.innerHTML = `${currentContent}<div>${name}</div>`;
+  
+      // Create and dispatch input event
+      const inputEvent = new Event('input', { bubbles: true });
+      editorDiv.dispatchEvent(inputEvent);
+  
+      // Create and dispatch change event if needed
+      const changeEvent = new Event('change', { bubbles: true });
+      editorDiv.dispatchEvent(changeEvent);
+    });
   }
 
     const urlParams = new URLSearchParams(window.location.search);
