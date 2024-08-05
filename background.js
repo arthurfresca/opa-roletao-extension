@@ -12,25 +12,14 @@ async function fetchPlayers() {
     return [];
   }
 }
-
-async function fetchNames() {
-    const response = await fetch('https://raw.githubusercontent.com/arthurfresca/opa-roletao-extension/master/resources/angels.txt');
-    const text = await response.text();
-    const names = text.split('\n').filter(name => name.trim() !== '');
-    return names;
-}
   
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'getPlayers') {
+       console.error('entrou');
       fetchPlayers().then(players => sendResponse(players));
       return true;
     }
 
-    if (request.action === 'getNames') {
-      fetchNames().then(names => sendResponse({ names }));
-      return true;
-    }
-  
     if (request.action === 'openWheelofNames') {
         chrome.tabs.create({ url: 'https://wheelofnames.com?'+arrayToQueryString(request.players) }, (tab) => {
         if (chrome.runtime.lastError) {
