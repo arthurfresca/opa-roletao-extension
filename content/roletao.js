@@ -121,7 +121,7 @@ function createNumberSelect() {
   numberSelect.id = 'numberSelect';
   numberSelect.style.marginRight = '10px';
   
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= 5; i++) {
     const option = document.createElement('option');
     option.value = i;
     option.textContent = i;
