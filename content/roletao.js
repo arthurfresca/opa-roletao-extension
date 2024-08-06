@@ -1,3 +1,9 @@
+const allPlayersWhoWannaStay = [];
+const playersWannaStayAndHasAngel = [];
+const playersWannaStayAndHasNoAngel = [];
+const newAngels = [];
+const spentAngel = [];
+
 // Utility function to send a message to the Chrome runtime and handle the response
 function getPlayers() {
   return new Promise((resolve, reject) => {
@@ -50,6 +56,7 @@ function initObserver(faceItIdsList) {
 function makeCanvasReadOnly(canvas) {
   if (canvas) {
     canvas.style.pointerEvents = 'none';
+    simulateTypingAndTriggerEvents([""]);
   }
 }
 
@@ -125,24 +132,29 @@ function createNumberSelect() {
 }
 
 // Utility function to create a submit button
-function createSubmitButton(wheelCanvas) {
+function createSubmitButton() {
   const submitButton = document.createElement('button');
   submitButton.id = 'submitButton';
   submitButton.textContent = 'Liberar a roleta';
+  return submitButton;
+}
 
+function releaseWheelClicked(submitButton, wheelCanvas, playersWithAngel) {
   submitButton.addEventListener('click', () => {
     const selectedNames = Array.from(document.querySelectorAll('#namesList input[type="checkbox"]:checked'))
       .map(checkbox => checkbox.value);
 
-    simulateTypingAndTriggerEvents(selectedNames);
+    allPlayersWhoWannaStay.push(...selectedNames);
+    playersWannaStayAndHasAngel.push(...selectedNames.filter(selected => playersWithAngel.includes(selected)));
+    playersWannaStayAndHasNoAngel.push(...selectedNames.filter(selected => !playersWithAngel.includes(selected)));
+
+    simulateTypingAndTriggerEvents(playersWannaStayAndHasNoAngel);
 
     submitButton.disabled = true;
     submitButton.style.cursor = 'not-allowed';
     submitButton.textContent = 'Roleta liberada';
     makeCanvasClickable(wheelCanvas);
   });
-
-  return submitButton;
 }
 
 // Main function to initialize the extension's functionality
@@ -151,7 +163,6 @@ function main() {
   
   const wheelCanvas = document.getElementById('parentDiv');
   makeCanvasReadOnly(wheelCanvas);
-
 
   getPlayers().then(allPlayers => {
     const faceItIdsList = allPlayers.map(player => player.faceitId);
@@ -185,7 +196,8 @@ function main() {
     formContainer.style.marginTop = '10px';
 
     // Create and append submit button
-    const submitButton = createSubmitButton(wheelCanvas);
+    const submitButton = createSubmitButton();
+    releaseWheelClicked(submitButton, wheelCanvas, playersWithAngel)
 
     formContainer.appendChild(numberLabel);
     formContainer.appendChild(numberSelect);
