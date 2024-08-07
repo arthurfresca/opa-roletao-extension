@@ -45,7 +45,6 @@ function handleTextBoxChange(textBox, faceItIdsList) {
 function playerGotAngel(playerName){
   newAngels.push(playerName);
   const numberOfPlayersWantToStay = document.getElementById('numberSelect');
-  alert(numberOfPlayersWantToStay.value);
   if (newAngels.length.toString() === numberOfPlayersWantToStay.value){
     openWinnerModal();
   }
@@ -96,7 +95,7 @@ function openWinnerModal(){
   const modal = document.createElement('div');
   modal.className = 'modal';
 
-  const willPlay =  Set([...playersWannaStayAndHasNoAngel.filter(player => !newAngels.includes(player)), ...newAngels]);
+  const willPlay = new Set([...playersWannaStayAndHasNoAngel.filter(player => !newAngels.includes(player)), ...playersWannaStayAndHasAngel]);
 
   modalSession(modal, 'Novos(s) anjos', newAngels);
   modalSession(modal, 'Usou anjo', playersWannaStayAndHasAngel);
