@@ -192,6 +192,8 @@ function createSubmitButton() {
   return submitButton;
 }
 
+
+
 function releaseWheelClicked(submitButton, wheelCanvas, playersWithAngel) {
   submitButton.addEventListener('click', () => {
     const selectedNames = Array.from(document.querySelectorAll('#namesList input[type="checkbox"]:checked'))
@@ -207,7 +209,19 @@ function releaseWheelClicked(submitButton, wheelCanvas, playersWithAngel) {
     submitButton.style.cursor = 'not-allowed';
     submitButton.textContent = 'Roleta liberada';
     makeCanvasClickable(wheelCanvas);
+    clickOnResults();
   });
+}
+
+function clickOnResults(){
+  // Find the "Results" tab element by its label text content
+  const resultsTab = [...document.querySelectorAll('.q-tab__label')].find(element => element.textContent.trim() === 'Results');
+
+  if (resultsTab) {
+    resultsTab.click();
+  } else {
+    console.log('Results tab not found.');
+  }
 }
 
 // Main function to initialize the extension's functionality
