@@ -31,15 +31,24 @@ function handleTextBoxChange(textBox, faceItIdsList) {
   const observer = new MutationObserver(mutationsList => {
     mutationsList.forEach(mutation => {
       if (mutation.type === 'childList' || mutation.type === 'characterData') {
-        const name = findNameWithThreeOccurrences(textBox.textContent.trim(), faceItIdsList);
-        if (name) {
-          alert(name);
+        const playerName = findNameWithThreeOccurrences(textBox.textContent.trim(), faceItIdsList);
+        if (playerName) {
+          playerGotAngel(playerName);
         }
       }
     });
   });
 
   observer.observe(textBox, { childList: true, characterData: true, subtree: true });
+}
+
+function playerGotAngel(playerName){
+  newAngels.push(playerName);
+  const numberOfPlayersWantToStay = document.getElementById('numberSelect');
+  alert(numberOfPlayersWantToStay.value);
+  if (newAngels.length.toString() === numberOfPlayersWantToStay.value){
+    openWinnerModal();
+  }
 }
 
 // Initializes the mutation observer if the text box is found
@@ -80,12 +89,54 @@ function simulateTypingAndTriggerEvents(names) {
   });
 }
 
+function openWinnerModal(){
+  const modalOverlay = document.createElement('div');
+  modalOverlay.className = 'modal-overlay';
+
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+
+  const willPlay =  Set([...playersWannaStayAndHasNoAngel.filter(player => !newAngels.includes(player)), ...newAngels]);
+
+  modalSession(modal, 'Novos(s) anjos', newAngels);
+  modalSession(modal, 'Usou anjo', playersWannaStayAndHasAngel);
+  modalSession(modal, 'Vai jogar', willPlay);
+
+  const closeButton = document.createElement('button');
+  closeButton.textContent = 'Close';
+  closeButton.className = 'modal-close';
+  closeButton.addEventListener('click', () => {
+    document.body.removeChild(modalOverlay);
+    document.body.classList.remove('modal-open');
+  });
+  modal.appendChild(closeButton);
+
+  modalOverlay.appendChild(modal);
+
+  document.body.appendChild(modalOverlay);
+  document.body.classList.add('modal-open');
+}
+
+function modalSession(modal, title, playerList){
+  const sessionTitle = document.createElement('h2');
+  sessionTitle.textContent = title;
+  modal.appendChild(sessionTitle);
+
+  const ulList = document.createElement('ul');
+  playerList.forEach(player => {
+    const listItem = document.createElement('li');
+    listItem.textContent = player;
+    ulList.appendChild(listItem);
+  });
+  modal.appendChild(ulList);
+}
+
 // Adds player elements with checkboxes and optional angel images to the names list
 function addPlayersToTheList(players, playersWithAngel, namesList) {
   players.forEach(player => {
     const playerElement = document.createElement('div');
     playerElement.style.cursor = 'pointer';
-    
+
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.style.marginRight = '5px';
@@ -120,7 +171,7 @@ function createNumberSelect() {
   const numberSelect = document.createElement('select');
   numberSelect.id = 'numberSelect';
   numberSelect.style.marginRight = '10px';
-  
+
   for (let i = 1; i <= 5; i++) {
     const option = document.createElement('option');
     option.value = i;
@@ -160,7 +211,7 @@ function releaseWheelClicked(submitButton, wheelCanvas, playersWithAngel) {
 // Main function to initialize the extension's functionality
 function main() {
   if (window.location.hostname !== 'wheelofnames.com') return;
-  
+
   const wheelCanvas = document.getElementById('parentDiv');
   makeCanvasReadOnly(wheelCanvas);
 
