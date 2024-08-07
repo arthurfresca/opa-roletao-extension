@@ -19,7 +19,7 @@ function getPlayers() {
 
 // Finds a name in the list that appears exactly three times in the given text
 function findNameWithThreeOccurrences(text, names) {
-  return names.find(name => {
+  return names.filter(name => !newAngels.includes(name)).find(name => {
     const regex = new RegExp(name, 'g');
     const matches = text.match(regex);
     return matches && matches.length === 3;
@@ -94,6 +94,9 @@ function openWinnerModal(){
 
   const modal = document.createElement('div');
   modal.className = 'modal';
+  const modalTitle = document.createElement('h1');
+  modalTitle.textContent = 'Resultado final';
+  modal.appendChild(modalTitle);
 
   const willPlay = new Set([...playersWannaStayAndHasNoAngel.filter(player => !newAngels.includes(player)), ...playersWannaStayAndHasAngel]);
 
