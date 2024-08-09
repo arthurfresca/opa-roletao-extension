@@ -2,7 +2,8 @@ const allPlayersWhoWannaStay = [];
 const playersWannaStayAndHasAngel = [];
 const playersWannaStayAndHasNoAngel = [];
 const newAngels = [];
-const spentAngel = [];
+let numOfPlayersWillNeedToLeave = 0;
+let numberOfPlayersWantToStay = 0;
 
 // Utility function to send a message to the Chrome runtime and handle the response
 function getPlayers() {
@@ -33,7 +34,7 @@ function handleTextBoxChange(textBox, faceItIdsList) {
       if (mutation.type === 'childList' || mutation.type === 'characterData') {
         const playerName = findNameWithThreeOccurrences(textBox.textContent.trim(), faceItIdsList);
         if (playerName) {
-          playerGotAngel(playerName);
+          playersGotAngel([playerName]);
         }
       }
     });
@@ -42,10 +43,10 @@ function handleTextBoxChange(textBox, faceItIdsList) {
   observer.observe(textBox, { childList: true, characterData: true, subtree: true });
 }
 
-function playerGotAngel(playerName){
-  newAngels.push(playerName);
-  const numberOfPlayersWantToStay = document.getElementById('numberSelect');
-  if (newAngels.length.toString() === numberOfPlayersWantToStay.value){
+function playersGotAngel(playerNames) {
+  newAngels.push(...playerNames);
+  
+  if (newAngels.length === numberOfPlayersWaiting){
     openWinnerModal();
   }
 }
@@ -98,11 +99,15 @@ function openWinnerModal(){
   modalTitle.textContent = 'Resultado final';
   modal.appendChild(modalTitle);
 
-  const willPlay = new Set([...playersWannaStayAndHasNoAngel.filter(player => !newAngels.includes(player)), ...playersWannaStayAndHasAngel]);
+  const willPlay = new Set([...playersWannaStayAndHasNoAngel.filter(player => !newAngels.includes(player)), ...playersWannaStayAndHasAngel, "+ "+numberOfPlayersWaiting+" de fora esperando"]);
 
-  modalSession(modal, 'Novos(s) anjos', newAngels);
-  modalSession(modal, 'Usou anjo', playersWannaStayAndHasAngel);
-  modalSession(modal, 'Vai jogar', willPlay);
+
+  const columnDiv = document.createElement('div');
+  columnDiv.id = 'column';
+  modalSession(columnDiv, 'Novos(s) anjos', newAngels, "columns");
+  modalSession(columnDiv, 'Usou anjo', playersWannaStayAndHasAngel, "columns");
+  modal.appendChild(columnDiv);
+  modalSession(modal, 'Vai jogar', willPlay, "full-width");
 
   const closeButton = document.createElement('button');
   closeButton.textContent = 'Close';
@@ -119,18 +124,26 @@ function openWinnerModal(){
   document.body.classList.add('modal-open');
 }
 
-function modalSession(modal, title, playerList){
+function modalSession(container, title, playerList, classStyleName){
+  const modalDiv = document.createElement('div');
+  modalDiv.classList.add(classStyleName);
+
+  // Create and append the session title
   const sessionTitle = document.createElement('h2');
   sessionTitle.textContent = title;
-  modal.appendChild(sessionTitle);
+  modalDiv.appendChild(sessionTitle);
 
+  // Create and append the unordered list
   const ulList = document.createElement('ul');
   playerList.forEach(player => {
     const listItem = document.createElement('li');
     listItem.textContent = player;
     ulList.appendChild(listItem);
   });
-  modal.appendChild(ulList);
+  modalDiv.appendChild(ulList);
+
+  // Append the complete session div to the container
+  container.appendChild(modalDiv);
 }
 
 // Adds player elements with checkboxes and optional angel images to the names list
@@ -199,11 +212,20 @@ function releaseWheelClicked(submitButton, wheelCanvas, playersWithAngel) {
     const selectedNames = Array.from(document.querySelectorAll('#namesList input[type="checkbox"]:checked'))
       .map(checkbox => checkbox.value);
 
+    numberOfPlayersWaiting = parseInt(document.getElementById('numberSelect').value, 10);
+
     allPlayersWhoWannaStay.push(...selectedNames);
     playersWannaStayAndHasAngel.push(...selectedNames.filter(selected => playersWithAngel.includes(selected)));
     playersWannaStayAndHasNoAngel.push(...selectedNames.filter(selected => !playersWithAngel.includes(selected)));
 
+    //numOfPlayersWillNeedToLeave = Math.max(0, playersWannaStayAndHasNoAngel.length + numberOfPlayersWaiting - (5 - playersWannaStayAndHasAngel.length));
+
+    if(numberOfPlayersWaiting == playersWannaStayAndHasNoAngel.length) {
+      playersGotAngel(playersWannaStayAndHasNoAngel)
+    }
+
     simulateTypingAndTriggerEvents(playersWannaStayAndHasNoAngel);
+    
 
     submitButton.disabled = true;
     submitButton.style.cursor = 'not-allowed';
