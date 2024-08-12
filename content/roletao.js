@@ -3,7 +3,8 @@ const playersWannaStayAndHasAngel = [];
 const playersWannaStayAndHasNoAngel = [];
 const newAngels = [];
 let numOfPlayersWillNeedToLeave = 0;
-let numberOfPlayersWantToStay = 0;
+let totalPlayersWannaStay = 0;
+const numOfPlayersPerMatch = 5;
 
 // Utility function to send a message to the Chrome runtime and handle the response
 function getPlayers() {
@@ -46,7 +47,7 @@ function handleTextBoxChange(textBox, faceItIdsList) {
 function playersGotAngel(playerNames) {
   newAngels.push(...playerNames);
   
-  if (newAngels.length === numberOfPlayersWaiting){
+  if (newAngels.length === numOfPlayersWillNeedToLeave){
     openWinnerModal();
   }
 }
@@ -218,9 +219,13 @@ function releaseWheelClicked(submitButton, wheelCanvas, playersWithAngel) {
     playersWannaStayAndHasAngel.push(...selectedNames.filter(selected => playersWithAngel.includes(selected)));
     playersWannaStayAndHasNoAngel.push(...selectedNames.filter(selected => !playersWithAngel.includes(selected)));
 
+    totalPlayersWannaStay = playersWannaStayAndHasNoAngel.length + playersWannaStayAndHasAngel.length;
+
     //numOfPlayersWillNeedToLeave = Math.max(0, playersWannaStayAndHasNoAngel.length + numberOfPlayersWaiting - (5 - playersWannaStayAndHasAngel.length));
 
-    if(numberOfPlayersWaiting == playersWannaStayAndHasNoAngel.length) {
+    numOfPlayersWillNeedToLeave = Math.max(0, (totalPlayersWannaStay + numberOfPlayersWaiting) - numOfPlayersPerMatch);
+
+    if(numOfPlayersWillNeedToLeave >= playersWannaStayAndHasNoAngel.length) {
       playersGotAngel(playersWannaStayAndHasNoAngel)
     }
 
