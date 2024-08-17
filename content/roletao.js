@@ -92,7 +92,7 @@ function simulateTypingAndTriggerEvents(names) {
   });
 }
 
-function openRipModal() {
+function openNoChangesModal(text) {
   const modalOverlay = document.createElement('div');
   modalOverlay.className = 'modal-overlay';
 
@@ -100,7 +100,7 @@ function openRipModal() {
   modal.className = 'modal';
   const modalTitle = document.createElement('h1');
   modalTitle.style.color = 'red';
-  modalTitle.textContent = 'F lobby ... Sem players suficiente';
+  modalTitle.textContent = text;
   modal.appendChild(modalTitle);
   modalOverlay.appendChild(modal);
   document.body.appendChild(modalOverlay);
@@ -246,11 +246,17 @@ function releaseWheelClicked(submitButton, wheelCanvas, playersWithAngel) {
     const willHaveNextMatch = totalPlayersWannaStay + numberOfPlayersWaiting >= numOfPlayersPerMatch ? true : false;
 
     if(!willHaveNextMatch) {
-      openRipModal();
+      openNoChangesModal("F Lobby ... Sem jogadores suficiente");
       return;
     }
 
     numOfPlayersWillNeedToLeave = Math.max(0, (totalPlayersWannaStay + numberOfPlayersWaiting) - numOfPlayersPerMatch);
+
+    if (numOfPlayersWillNeedToLeave == 0) {
+      const wannaStay = selectedNames.join(', ') + " +" + numberOfPlayersWaiting + " de fora esperando";
+      openNoChangesModal("Sem alterações no anjo: "+ wannaStay + " Vão jogar");
+      return;
+    }
 
     let willDrawAngels = false;
 
