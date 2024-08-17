@@ -92,6 +92,21 @@ function simulateTypingAndTriggerEvents(names) {
   });
 }
 
+function openRipModal() {
+  const modalOverlay = document.createElement('div');
+  modalOverlay.className = 'modal-overlay';
+
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  const modalTitle = document.createElement('h1');
+  modalTitle.style.color = 'red';
+  modalTitle.textContent = 'F lobby ... Sem players suficiente';
+  modal.appendChild(modalTitle);
+  modalOverlay.appendChild(modal);
+  document.body.appendChild(modalOverlay);
+  document.body.classList.add('modal-open');
+}
+
 function openWinnerModal(){
   const modalOverlay = document.createElement('div');
   modalOverlay.className = 'modal-overlay';
@@ -227,6 +242,13 @@ function releaseWheelClicked(submitButton, wheelCanvas, playersWithAngel) {
     totalPlayersWannaStay = playersWannaStayAndHasNoAngel.length + playersWannaStayAndHasAngel.length;
 
     //numOfPlayersWillNeedToLeave = Math.max(0, playersWannaStayAndHasNoAngel.length + numberOfPlayersWaiting - (5 - playersWannaStayAndHasAngel.length));
+
+    const willHaveNextMatch = totalPlayersWannaStay + numberOfPlayersWaiting >= numOfPlayersPerMatch ? true : false;
+
+    if(!willHaveNextMatch) {
+      openRipModal();
+      return;
+    }
 
     numOfPlayersWillNeedToLeave = Math.max(0, (totalPlayersWannaStay + numberOfPlayersWaiting) - numOfPlayersPerMatch);
 
