@@ -3,8 +3,10 @@ const playersWannaStayAndHasAngel = [];
 const playersWannaStayAndHasNoAngel = [];
 const newAngels = [];
 let numOfPlayersWillNeedToLeave = 0;
+let numOfAngelsWillNeedToLeave = 0;
 let totalPlayersWannaStay = 0;
 const numOfPlayersPerMatch = 5;
+const willPlay = [];
 
 // Utility function to send a message to the Chrome runtime and handle the response
 function getPlayers() {
@@ -100,8 +102,11 @@ function openWinnerModal(){
   modalTitle.textContent = 'Resultado final';
   modal.appendChild(modalTitle);
 
-  const willPlay = new Set([...playersWannaStayAndHasNoAngel.filter(player => !newAngels.includes(player)), ...playersWannaStayAndHasAngel, "+ "+numberOfPlayersWaiting+" de fora esperando"]);
-
+  willPlay.push(
+    ...playersWannaStayAndHasNoAngel.filter(player => !newAngels.includes(player)),
+    ...playersWannaStayAndHasAngel.filter(player => !newAngels.includes(player)),
+    "+ " + numberOfPlayersWaiting + " de fora esperando"
+);
 
   const columnDiv = document.createElement('div');
   columnDiv.id = 'column';
@@ -225,13 +230,22 @@ function releaseWheelClicked(submitButton, wheelCanvas, playersWithAngel) {
 
     numOfPlayersWillNeedToLeave = Math.max(0, (totalPlayersWannaStay + numberOfPlayersWaiting) - numOfPlayersPerMatch);
 
+    let willDrawAngels = false;
+
     if(numOfPlayersWillNeedToLeave >= playersWannaStayAndHasNoAngel.length) {
-      playersGotAngel(playersWannaStayAndHasNoAngel)
+      playersGotAngel(playersWannaStayAndHasNoAngel);
+      if(numOfPlayersWillNeedToLeave > playersWannaStayAndHasNoAngel.length){
+        numOfAngelsWillNeedToLeave = numOfPlayersWillNeedToLeave - playersWannaStayAndHasNoAngel.length;
+        willDrawAngels = true;
+      }
     }
 
-    simulateTypingAndTriggerEvents(playersWannaStayAndHasNoAngel);
+    if(willDrawAngels) {
+      simulateTypingAndTriggerEvents(playersWannaStayAndHasAngel);
+    } else {
+      simulateTypingAndTriggerEvents(playersWannaStayAndHasNoAngel);
+    }
     
-
     submitButton.disabled = true;
     submitButton.style.cursor = 'not-allowed';
     submitButton.textContent = 'Roleta liberada';
