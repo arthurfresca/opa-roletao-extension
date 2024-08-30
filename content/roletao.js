@@ -31,11 +31,11 @@ function findNameWithThreeOccurrences(text, names) {
 }
 
 // Observes changes to a text box and triggers an alert if a name appears exactly three times
-function handleTextBoxChange(textBox, faceItIdsList) {
+function handleTextBoxChange(textBox, faceitNicksList) {
   const observer = new MutationObserver(mutationsList => {
     mutationsList.forEach(mutation => {
       if (mutation.type === 'childList' || mutation.type === 'characterData') {
-        const playerName = findNameWithThreeOccurrences(textBox.textContent.trim(), faceItIdsList);
+        const playerName = findNameWithThreeOccurrences(textBox.textContent.trim(), faceitNicksList);
         if (playerName) {
           playersGotAngel([playerName]);
         }
@@ -55,10 +55,10 @@ function playersGotAngel(playerNames) {
 }
 
 // Initializes the mutation observer if the text box is found
-function initObserver(faceItIdsList) {
+function initObserver(faceitNicksList) {
   const textBox = document.querySelector('.results-textbox');
   if (textBox) {
-    handleTextBoxChange(textBox, faceItIdsList);
+    handleTextBoxChange(textBox, faceitNicksList);
   } else {
     console.error('TextBox not found');
   }
@@ -301,14 +301,14 @@ function main() {
   makeCanvasReadOnly(wheelCanvas);
 
   getPlayers().then(allPlayers => {
-    const faceItIdsList = allPlayers.map(player => player.faceitId);
-    const playersWithAngel = allPlayers.filter(player => player.hasAngel).map(player => player.faceitId);
+    const faceitNicksList = allPlayers.map(player => player.faceitNick);
+    const playersWithAngel = allPlayers.filter(player => player.hasAngel).map(player => player.faceitNick);
 
     // Mutation observer to initialize when the text box appears
     const observer = new MutationObserver(() => {
       const textBox = document.querySelector('.results-textbox');
       if (textBox) {
-        initObserver(faceItIdsList);
+        initObserver(faceitNicksList);
         observer.disconnect();
       }
     });
@@ -320,7 +320,7 @@ function main() {
     const namesList = document.createElement('div');
     namesList.id = 'namesList';
 
-    const playersToAddInTheList = playersSelected.length == 0 ? faceItIdsList : playersSelected;
+    const playersToAddInTheList = playersSelected.length == 0 ? faceitNicksList : playersSelected;
 
     addPlayersToTheList(playersToAddInTheList, playersWithAngel, namesList);
 

@@ -1,6 +1,12 @@
 async function fetchPlayers() {
   try {
-    const response = await fetch('https://raw.githubusercontent.com/arthurfresca/opa-roletao-extension/master/resources/playermapping.json?test=te');
+    const response = await fetch('https://csabe-cb95c9877c4f.herokuapp.com/opa/admin/member', {
+      method: 'GET',
+      headers: {
+          'adminkey': '123test123',
+          'Content-Type': 'application/json'
+      }
+    });
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

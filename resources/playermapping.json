@@ -1,7 +1,7 @@
 [
     {
         "name": "KICKFLIP",
-        "faceitId": "KICKFLIPPPPP",
+        "faceitNick": "KICKFLIPPPPP",
         "csstatsId": "76561198880256779",
         "role": "Admin",
         "hasAngel": true,
@@ -9,7 +9,7 @@
     },
     {
         "name": "Chalk",
-        "faceitId": "Chalkzera",
+        "faceitNick": "Chalkzera",
         "csstatsId": "76561198044554166",
         "role": "Admin",
         "hasAngel": false,
@@ -17,7 +17,7 @@
     },
     {
         "name": "Flafjr",
-        "faceitId": "flafjr",
+        "faceitNick": "flafjr",
         "csstatsId": "76561198086481162",
         "role": "Admin",
         "hasAngel": false,
@@ -25,7 +25,7 @@
     },
     {
         "name": "Cnidario",
-        "faceitId": "Cnidario",
+        "faceitNick": "Cnidario",
         "csstatsId": "76561198077945436",
         "role": "Ancião",
         "hasAngel": true,
@@ -33,7 +33,7 @@
     },
     {
         "name": "NotProPlayer",
-        "faceitId": "notPro10",
+        "faceitNick": "notPro10",
         "csstatsId": "76561198023688039",
         "role": "Ancião",
         "hasAngel": false,
@@ -41,7 +41,7 @@
     },
     {
         "name": "Mark",
-        "faceitId": "R_MArk",
+        "faceitNick": "R_MArk",
         "csstatsId": "76561198428260263",
         "role": "Ancião",
         "hasAngel": false,
@@ -49,7 +49,7 @@
     },
     {
         "name": "f3rraz",
-        "faceitId": "el_mago97",
+        "faceitNick": "el_mago97",
         "csstatsId": "76561199112330495",
         "role": "Ancião",
         "hasAngel": false,
@@ -57,7 +57,7 @@
     },
     {
         "name": "rafA",
-        "faceitId": "___rafA",
+        "faceitNick": "___rafA",
         "csstatsId": "76561199219737474",
         "role": "Véiaco",
         "hasAngel": true,
@@ -65,7 +65,7 @@
     },
     {
         "name": "Ramone",
-        "faceitId": "_Ramone",
+        "faceitNick": "_Ramone",
         "csstatsId": "76561198970702915",
         "role": "Ancião",
         "hasAngel": false,
@@ -73,7 +73,7 @@
     },
     {
         "name": "Marlon Zambroni",
-        "faceitId": "marlon91",
+        "faceitNick": "marlon91",
         "csstatsId": "76561198951887025",
         "role": "Experiente",
         "hasAngel": false,
@@ -81,7 +81,7 @@
     },
     {
         "name": "Cezinha",
-        "faceitId": "sfribeiro",
+        "faceitNick": "sfribeiro",
         "csstatsId": "76561198043576393",
         "role": "Novinho",
         "hasAngel": false,
@@ -89,7 +89,7 @@
     },
     {
         "name": "Purgatory",
-        "faceitId": "Elunesz",
+        "faceitNick": "Elunesz",
         "csstatsId": "76561197987233720",
         "role": "Novinho",
         "hasAngel": false,
@@ -97,7 +97,7 @@
     },
     {
         "name": "Freeman",
-        "faceitId": "-Freeman_-",
+        "faceitNick": "-Freeman_-",
         "csstatsId": "76561197961956900",
         "role": "Novinho",
         "hasAngel": false,
@@ -105,7 +105,7 @@
     },
     {
         "name": "Blue Dog",
-        "faceitId": "-BlueDog-",
+        "faceitNick": "-BlueDog-",
         "csstatsId": "76561198066704802",
         "role": "Novinho",
         "hasAngel": false,
@@ -113,7 +113,7 @@
     },
     {
         "name": "Elvis Astronauta",
-        "faceitId": "elvis_Astnt",
+        "faceitNick": "elvis_Astnt",
         "csstatsId": "76561198053161518",
         "role": "Novinho",
         "hasAngel": false,
@@ -121,7 +121,7 @@
     },
     {
         "name": "Bno",
-        "faceitId": "bnocesar",
+        "faceitNick": "bnocesar",
         "csstatsId": "76561199480351514",
         "role": "Novinho",
         "hasAngel": false,
@@ -129,7 +129,7 @@
     },
     {
         "name": "Lipe",
-        "faceitId": "Insidercs",
+        "faceitNick": "Insidercs",
         "csstatsId": "insidercs",
         "role": "Incubator",
         "hasAngel": false,

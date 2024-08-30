@@ -14,13 +14,13 @@ async function getPlayersInTheMatch() {
   const players = await getPlayers();
   const playersInTheMatch = [];
 
-  const faceitIds = players.map(player => player.faceitId).filter(id => id);
+  const faceitNicks = players.map(player => player.faceitNick).filter(id => id);
 
   const scoreboard = document.getElementById('MATCHROOM-SCOREBOARD');
   const scoreboardElements = Array.from(scoreboard.children);
 
   scoreboardElements.forEach(el => {
-    faceitIds.filter(id => (el.textContent.toString().includes(id))).forEach(
+    faceitNicks.filter(id => (el.textContent.toString().includes(id))).forEach(
       playerInTheMatch => playersInTheMatch.push(playerInTheMatch)
     );
   });
