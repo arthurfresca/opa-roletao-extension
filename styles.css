@@ -177,3 +177,28 @@ body.modal-open {
 .modal-close:hover {
   background: #ff3838; /* Darker red on hover */
 }
+
+/* Styling for the button container to align buttons */
+.modal-button-container {
+  display: flex;
+  justify-content: flex-end; /* Aligns buttons to the right */
+  gap: 10px; /* Adds space between buttons */
+  margin-top: 20px; /* Adds margin above the buttons */
+}
+
+/* Styling for the save button */
+.modal-save {
+  background: #4CAF50; /* Red background for the close button */
+  border: none;
+  color: #fff; /* White text color for the close button */
+  padding: 10px 15px; /* Larger padding for better click area */
+  border-radius: 4px; /* Slightly larger border radius */
+  cursor: pointer;
+  margin-top: 20px; /* Increased margin for separation */
+  align-self: flex-end; /* Align the close button to the right */
+  transition: background 0.3s ease; /* Smooth transition for hover effect */
+}
+/* Hover effect for the save button */
+.modal-save:hover {
+  background: #45a049; /* Darker green on hover */
+}

@@ -130,14 +130,30 @@ function openWinnerModal(){
   modal.appendChild(columnDiv);
   modalSession(modal, 'Vai jogar', willPlay, "full-width");
 
-  const closeButton = document.createElement('button');
-  closeButton.textContent = 'Close';
-  closeButton.className = 'modal-close';
-  closeButton.addEventListener('click', () => {
-    document.body.removeChild(modalOverlay);
-    document.body.classList.remove('modal-open');
-  });
-  modal.appendChild(closeButton);
+    // Create the close button
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Close';
+    closeButton.className = 'modal-close';
+    closeButton.addEventListener('click', () => {
+      document.body.removeChild(modalOverlay);
+      document.body.classList.remove('modal-open');
+    });
+  
+    // Create the save button
+    const saveButton = document.createElement('button');
+    saveButton.textContent = 'Save';
+    saveButton.className = 'modal-save';
+    saveButton.addEventListener('click', () => {
+      // Implement your save logic here
+      console.log('Save button clicked');
+    });
+  
+    // Create a button container
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'modal-button-container';
+    buttonContainer.appendChild(closeButton);
+    buttonContainer.appendChild(saveButton);
+    modal.appendChild(buttonContainer);
 
   modalOverlay.appendChild(modal);
 
