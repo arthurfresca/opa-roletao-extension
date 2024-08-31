@@ -18,10 +18,34 @@ async function fetchPlayers() {
     return [];
   }
 }
+
+async function saveAngels(data) {
+  try {
+    const response = await fetch('https://csabe-cb95c9877c4f.herokuapp.com/opa/admin/member/save-angel', {
+      method: 'PUT',
+      headers: {
+          'adminkey': '123test123',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+  } catch (error) {
+    console.error('Error fetching faceit IDs:', error);
+    return [];
+  }
+}
   
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'getPlayers') {
       fetchPlayers().then(players => sendResponse(players));
+      return true;
+    }
+
+    if (request.action === 'saveAngels') {
+      saveAngels(request.data);
       return true;
     }
 

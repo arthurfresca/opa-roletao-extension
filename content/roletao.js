@@ -144,8 +144,13 @@ function openWinnerModal(){
     saveButton.textContent = 'Save';
     saveButton.className = 'modal-save';
     saveButton.addEventListener('click', () => {
-      // Implement your save logic here
-      console.log('Save button clicked');
+      data = {
+        oldAngels:[...playersWannaStayAndHasAngel],
+        newAngels:[...newAngels]
+      }
+      chrome.runtime.sendMessage({ action: 'saveAngels', data });
+      document.body.removeChild(modalOverlay);
+      document.body.classList.remove('modal-open');
     });
   
     // Create a button container
